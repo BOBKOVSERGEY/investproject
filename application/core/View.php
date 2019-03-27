@@ -51,9 +51,9 @@ class View
     exit;
   }
 
-  public function message($status, $message)
+  public function message($status, $message, $title)
   {
-    exit(json_encode(['status' => $status, 'message' => $message]));
+    exit(json_encode(['status' => $status, 'message' => $message, 'title' => $title]));
   }
 
   public function location($url)

@@ -16,26 +16,30 @@ class Router
   }
 
   // add route
-  public function add($route, $params)
-  {
-    $route = '#^'. $route .'$#';
-
+  public function add($route, $params) {
+    $route = preg_replace('/{([a-z]+):([^\}]+)}/', '(?P<\1>\2)', $route);
+    $route = '#^'.$route.'$#';
     $this->routes[$route] = $params;
   }
 
   // check route
-  public function match()
-  {
-    // get current url
-    $url =  trim($_SERVER['REQUEST_URI'], '/');
-
+  public function match() {
+    $url = trim($_SERVER['REQUEST_URI'], '/');
     foreach ($this->routes as $route => $params) {
       if (preg_match($route, $url, $matches)) {
+        foreach ($matches as $key => $match) {
+          if (is_string($key)) {
+            if (is_numeric($match)) {
+              $match = (int) $match;
+            }
+            $params[$key] = $match;
+          }
+        }
         $this->params = $params;
         return true;
       }
     }
-
+    return false;
   }
 
   // start router

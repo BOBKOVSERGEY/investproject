@@ -11,10 +11,14 @@ spl_autoload_register(function($className) {
     //require $path;
   }
 });
+// vendor
+require __DIR__ . '/vendor/autoload.php';
+
 
 // start session
 session_start();
 
 $router = new Router();
 $router->run();
+
 

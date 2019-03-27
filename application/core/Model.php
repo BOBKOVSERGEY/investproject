@@ -15,4 +15,9 @@ abstract class Model
     $this->db = new Db();
   }
 
+  public function security($data)
+  {
+    return trim(strip_tags($data));
+  }
+
 }

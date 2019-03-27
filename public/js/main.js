@@ -26,7 +26,7 @@ $(function () {
         } else  {
           swal(
             res.title,
-            res.text,
+            res.message,
             res.status,
           );
         }

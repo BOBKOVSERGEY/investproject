@@ -1,14 +1,12 @@
 <?php
 
 return [
+  // MainController
   '' => [
     'controller' => 'main',
     'action' => 'index'
   ],
-  'contact' => [
-    'controller' => 'main',
-    'action' => 'contact'
-  ],
+  // AccountController
   'account/login' => [
     'controller' => 'account',
     'action' => 'login'
@@ -16,5 +14,13 @@ return [
   'account/register' => [
     'controller' => 'account',
     'action' => 'register'
+  ],
+  'account/recovery' => [
+    'controller' => 'account',
+    'action' => 'recovery'
+  ],
+  'account/confirm/{token:\w+}' => [
+    'controller' => 'account',
+    'action' => 'confirm',
   ],
 ];
