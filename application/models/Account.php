@@ -67,6 +67,22 @@ class Account extends Model
     return true;
   }
 
+  public function checkTokenExist($token)
+  {
+    $params = [
+      'token' => $token,
+    ];
+    return $this->db->column('SELECT id FROM accounts WHERE token = :token', $params);
+  }
+
+  public function activate($token)
+  {
+    $params = [
+      'token' => $token,
+    ];
+    $this->db->query('UPDATE accounts SET status = 1, token = "" WHERE token = :token', $params);
+  }
+
   public function createToken()
   {
     return substr(str_shuffle(str_repeat('0123456789abcdefghijklmnopqrstuvwxyz', 30)), 0, 30);
@@ -88,7 +104,6 @@ class Account extends Model
     $this->db->query('INSERT INTO accounts VALUES (:id, :email, :login, :wallet, :password, :ref, :token, :status)', $params);
 
     Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']);
-
 
   }
 

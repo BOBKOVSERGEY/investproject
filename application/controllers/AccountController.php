@@ -37,7 +37,11 @@ class AccountController extends Controller
 
   public function confirmAction()
   {
-    debug($this->route, 1);
-    //$this->view->render('confirm');
+    if (!$this->model->checkTokenExist($this->route['token'])) {
+      //$this->view->errorCode(403);
+      $this->view->redirect('/account/login');
+    }
+    $this->model->activate($this->route['token']);
+    $this->view->render('Регистрация завершена');
   }
 }
