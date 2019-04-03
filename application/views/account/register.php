@@ -16,14 +16,14 @@
                     </div>
                 </div>
                 <?php if (isset($this->route['ref'])): ?>
-                    <!--<div class="control-group form-group">
+                    <div class="control-group form-group">
                         <div class="controls">
                             <label>Пригласил:</label>
                             <input type="text" class="form-control" name="ref" value="<?php echo $this->route['ref']; ?>" readonly>
                         </div>
-                    </div>-->
+                    </div>
                 <?php else: ?>
-                    <!--<input type="hidden" class="form-control" name="ref" value="none"> -->
+                    <input type="hidden" class="form-control" name="ref" value="none">
                 <?php endif; ?>
                 <div class="control-group form-group">
                     <div class="controls">

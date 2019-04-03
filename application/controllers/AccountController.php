@@ -15,9 +15,9 @@ class AccountController extends Controller
 
   public function registerAction()
   {
-    //debug($this->model->createToken(),1);
+    //debug($this->route,1);
     if (!empty($_POST)) {
-      if (!$this->model->validate(['email', 'login', 'wallet', 'password'], $_POST)) {
+      if (!$this->model->validate(['email', 'login', 'wallet', 'password', 'ref'], $_POST)) {
         $this->view->message('error', $this->model->error, 'Ошибочка');
       } else if (!$this->model->checkEmailExist($_POST['email'])) {
         $this->view->message('error', $this->model->error, 'Ошибочка');

@@ -22,6 +22,10 @@ class Account extends Model
         'pattern' => '#^[a-z0-9]{3,15}$#',
         'message' => 'Логин указан неверно (разрешены только латинские буквы и цифры от 3 до 15 символов',
       ],
+      'ref' => [
+        'pattern' => '#^[a-z0-9]{3,15}$#',
+        'message' => 'Логин пригласившего указан неверно',
+      ],
       /*'ref' => [
         'pattern' => '#^[a-z0-9]{3,15}$#',
         'message' => 'Логин пригласившего указан неверно',
@@ -42,6 +46,12 @@ class Account extends Model
         return false;
       }
     }
+
+    if ($post['login'] == $post['ref']) {
+      $this->error = 'Регистрация невозможна';
+      return false;
+    }
+
     return true;
   }
 
@@ -65,6 +75,13 @@ class Account extends Model
       return false;
     }
     return true;
+  }
+
+  public function checkRefExist($login) {
+    $params = [
+      'login' => trim($login),
+    ];
+    return $this->db->column('SELECT id FROM accounts WHERE login = :login', $params);
   }
 
   public function checkTokenExist($token)
@@ -91,19 +108,29 @@ class Account extends Model
   public function register($post)
   {
     $token = $this->createToken();
+
+    if ($post['ref'] == 'none') {
+      $ref = 0;
+    } else {
+      $ref = $this->checkRefExist($post['ref']);
+      if (!$ref) {
+        $ref = 0;
+      }
+    }
     $params = [
       'id' => null,
       'email' => $this->security($post['email']),
       'login' => $this->security($post['login']),
       'wallet' => $this->security($post['wallet']),
       'password' => password_hash($this->security($post['password']), PASSWORD_BCRYPT),
-      'ref' => '0',
+      'ref' => $ref,
       'token' => $token,
       'status' => 0,
     ];
     $this->db->query('INSERT INTO accounts VALUES (:id, :email, :login, :wallet, :password, :ref, :token, :status)', $params);
+    //debug(Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']), 1);
+      Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']);
 
-    Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']);
 
   }
 
