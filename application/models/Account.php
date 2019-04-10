@@ -47,9 +47,11 @@ class Account extends Model
       }
     }
 
-    if ($post['login'] == $post['ref']) {
-      $this->error = 'Регистрация невозможна';
-      return false;
+    if (isset($_POST['ref'])) {
+      if ($post['login'] == $post['ref']) {
+        $this->error = 'Регистрация невозможна';
+        return false;
+      }
     }
 
     return true;
@@ -131,6 +133,35 @@ class Account extends Model
     //debug(Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']), 1);
       Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']);
 
+
+  }
+
+  public function checkData($login, $password)
+  {
+    $params = [
+      'login' => trim($login),
+    ];
+    $hash = $this->db->column('SELECT password FROM accounts WHERE login = :login', $params);
+
+    if (!$hash or !password_verify($password, $hash)){
+      $this->error = 'Логин или пароль указаны неверно';
+      return false;
+    }
+    return true;
+  }
+
+  public function checkStatus($type, $data) {
+    $params = [
+      $type => trim($data),
+    ];
+    $status = $this->db->column('SELECT status FROM accounts WHERE ' . $type . ' = :' . $type, $params);
+
+
+    if ($status != 1) {
+      $this->error = 'Аккаунт ожидает подтверждения по email';
+      return false;
+    }
+    return true;
 
   }
 

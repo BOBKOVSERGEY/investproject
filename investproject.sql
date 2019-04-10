@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 03 2019 г., 10:16
+-- Время создания: Апр 10 2019 г., 09:51
 -- Версия сервера: 5.7.23
 -- Версия PHP: 7.0.32
 
@@ -44,8 +44,7 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `email`, `login`, `wallet`, `password`, `ref`, `token`, `status`) VALUES
-(26, 'sergey_bobkov@inbox.ru', 'sergeybobkov', 'U9266668737', '$2y$10$3OLpbDEk3JFfmGmJx1hLZ.WVmyXxJ3fMg6NDPT5S7RoygsXhMe/sG', 0, '', 1),
-(27, 'esdicompany@yandex.ru', 'esdicompany', 'U9670587507', '$2y$10$g072Jr1GELWPbXUMLSgSm.LbvSKc.nWicEQQ9mgDZmus0TVp5H/x.', 26, '', 1);
+(1, 'sergey_bobkov@inbox.ru', 'sergeybobkov', 'U9266668737', '$2y$10$TLTt/c6DD7L8oPWPiw8zIu.YKs/tebM71MMDfFsS8HQjyE1gpjs3S', 0, '', 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -65,7 +64,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT для таблицы `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

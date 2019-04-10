@@ -10,6 +10,19 @@ class AccountController extends Controller
 {
   public function loginAction()
   {
+    if (!empty($_POST)) {
+
+      if (!$this->model->validate(['login', 'password'], $_POST)) {
+        $this->view->message('error', $this->model->error, 'Ошибочка');
+      } else if (!$this->model->checkData($_POST['login'], $_POST['password'])) {
+        $this->view->message('error', $this->model->error, 'Ошибочка');
+      } else if (!$this->model->checkStatus('login', $_POST['login'])) {
+        $this->view->message('error', $this->model->error, 'Ошибочка');
+      }
+
+      //$this->model->register($_POST);
+      $this->view->message('success', 'ok', 'вход пыполнен');
+    }
     $this->view->render('Вход');
   }
 
@@ -25,7 +38,7 @@ class AccountController extends Controller
         $this->view->message('error', $this->model->error, 'Ошибочка');
       }
       $this->model->register($_POST);
-      $this->view->message('success', 'Подтвердите свой email', 'Регистрация завершена');
+      $this->view->message('success', 'На почту отправлено письмо, подтвердите свой email', 'Регистрация завершена');
     }
     $this->view->render('Регистрация');
   }
