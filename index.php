@@ -18,6 +18,7 @@ require __DIR__ . '/vendor/autoload.php';
 // start session
 session_start();
 
+
 $router = new Router();
 $router->run();
 

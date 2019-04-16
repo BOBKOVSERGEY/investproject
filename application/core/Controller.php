@@ -10,6 +10,7 @@ abstract class Controller
   public $view;
   public $model;
   public $acl;
+  public $tariffs;
 
   public function __construct($route)
   {
@@ -19,6 +20,7 @@ abstract class Controller
     }
     $this->view = new View($route);
     $this->model = $this->loadModel($route['controller']);
+    $this->tariffs = require __DIR__ . '/../config/tariffs.php' ;
   }
 
   public function loadModel($name)
@@ -37,9 +39,9 @@ abstract class Controller
       $this->acl = require $path;
       if ($this->isAcl('all')) {
         return true;
-      } else if (isset($_SESSION['authorize']['id']) && $this->isAcl('authorize')) {
+      } else if (isset($_SESSION['account']['id']) && $this->isAcl('authorize')) {
         return true;
-      } else if (!isset($_SESSION['authorize']['id']) && $this->isAcl('guest')) {
+      } else if (!isset($_SESSION['account']['id']) && $this->isAcl('guest')) {
         return true;
       } else if (isset($_SESSION['admin']) && $this->isAcl('admin')) {
         return true;

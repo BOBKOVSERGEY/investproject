@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 10 2019 г., 09:51
+-- Время создания: Апр 16 2019 г., 10:03
 -- Версия сервера: 5.7.23
 -- Версия PHP: 7.0.32
 
@@ -44,7 +44,8 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `email`, `login`, `wallet`, `password`, `ref`, `token`, `status`) VALUES
-(1, 'sergey_bobkov@inbox.ru', 'sergeybobkov', 'U9266668737', '$2y$10$TLTt/c6DD7L8oPWPiw8zIu.YKs/tebM71MMDfFsS8HQjyE1gpjs3S', 0, '', 1);
+(1, 'sergey_bobkov@inbox.ru', 'sergeybobkov', 'G9266668737', '$2y$10$paz426g1mwaWYTJpAiycYerdG8R8LJJGMhzkjqPkCNegggFvHKEfe', 0, '', 1),
+(2, 'esdicompany@yandex.ru', 'esdicompany', 'U84956643815', '$2y$10$JUYJ7At0LV/i0YRlkJfaIuhBsX47tqlBATHA/BR16MbkBmTkGQpPG', 0, '3x75gvb9gjkt8v8wfixcj8j02ibai3', 0);
 
 --
 -- Индексы сохранённых таблиц

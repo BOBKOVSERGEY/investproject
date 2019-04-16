@@ -68,6 +68,13 @@ class Account extends Model
     return true;
   }
 
+  public function checkEmailExistReturnId($email) {
+    $params = [
+      'email' => trim($email),
+    ];
+    return $this->db->column('SELECT id FROM accounts WHERE email = :email', $params);
+  }
+
   public function checkLoginExist($login) {
     $params = [
       'login' => trim($login),
@@ -163,6 +170,61 @@ class Account extends Model
     }
     return true;
 
+  }
+
+  public function login($login)
+  {
+    $params = [
+      'login' => trim($login),
+    ];
+    $data = $this->db->row('SELECT * FROM accounts WHERE login = :login', $params);
+    $_SESSION['account'] = $data[0];
+
+  }
+
+  public function recovery($post)
+  {
+    $token = $this->createToken();
+    $params = [
+      'email' => $this->security($post['email']),
+      'token' => $token,
+    ];
+    $this->db->query('UPDATE accounts SET token = :token WHERE email = :email', $params);
+
+    Mail::sendMail('Восстановление пароля', "<a href='http://investproject/account/reset/{$token}'>Восстановление пароля http://investproject/account/reset/{$token}</a>", $post['email']);
+
+  }
+
+  public function reset($token)
+  {
+    $newPassword = $this->createToken();
+    $params = [
+      'token' => $token,
+      'password' => password_hash($newPassword, PASSWORD_BCRYPT)
+    ];
+    $this->db->query('UPDATE accounts SET token = "", password = :password WHERE token = :token', $params);
+    return $newPassword;
+  }
+
+  public function save($post)
+  {
+    $sql = '';
+    $params = [
+      'id' => $_SESSION['account']['id'],
+      'email' => $post['email'],
+      'wallet' => $post['wallet'],
+    ];
+    if (!empty($post['password'])) {
+      $params['password'] = password_hash($post['password'], PASSWORD_BCRYPT);
+      $sql .= ', password = :password';
+    }
+
+    // и запишем(обновим) данные в сессию
+    foreach ($params as $key => $val) {
+      $_SESSION['account'][$key] = $val;
+    }
+    // и запишем(обновим) данные БД
+    $this->db->query('UPDATE accounts SET email = :email, wallet = :wallet' . $sql . ' WHERE id = :id', $params);
   }
 
 }

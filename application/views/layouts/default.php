@@ -18,8 +18,13 @@
     <a class="p-2 text-dark" href="#">Support</a>
     <a class="p-2 text-dark" href="#">Pricing</a>
   </nav>
-  <a class="btn btn-outline-primary" href="/account/register">Регистрация</a>
-  <a class="btn btn-outline-primary ml-3" href="/account/login">Вход</a>
+  <?php if (isset($_SESSION['account']['id'])) { ?>
+    <a class="btn btn-outline-primary" href="/account/profile">Профиль</a>
+    <a class="btn btn-outline-primary ml-3" href="/account/logout">Выход</a>
+  <?php } else { ?>
+    <a class="btn btn-outline-primary" href="/account/register">Регистрация</a>
+    <a class="btn btn-outline-primary ml-3" href="/account/login">Вход</a>
+  <?php } ?>
 </div>
 <?php echo $content; ?>
   <footer class="pt-4 my-md-5 pt-md-5 border-top container">

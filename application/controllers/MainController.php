@@ -13,10 +13,8 @@ class MainController extends Controller
   public function indexAction()
   {
 
-
-
     $vars = [
-      'news' => ''
+      'tariffs' => $this->tariffs
     ];
     $this->view->render('Главная', $vars);
   }
