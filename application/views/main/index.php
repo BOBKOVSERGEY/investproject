@@ -29,7 +29,12 @@
                 <span class="badge badge-primary badge-pill"><?php echo $tariff['hour']; ?> ч.</span>
               </li>
             </ul>
-            <a href="/dashboard/invest/<?php echo $key; ?>" class="btn btn-lg btn-block btn-outline-primary">Инвестировать</a>
+            <?php if (isset($_SESSION['account']['id'])) { ?>
+              <a href="/dashboard/invest/<?php echo $key; ?>" class="btn btn-lg btn-block btn-outline-primary">Инвестировать</a>
+            <?php } else { ?>
+              <a href="/account/login" class="btn btn-lg btn-block btn-outline-primary">Авторизуйтесь</a>
+            <?php } ?>
+
           </div>
         </div>
       </div>
