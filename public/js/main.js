@@ -1,11 +1,17 @@
 $(function () {
   $('form').on('submit', function (event) {
+    if (this.getAttribute('id') =='no_ajax') {
+      return;
+    }
+
+
     event.preventDefault();
     // reset
     //this.reset();
     // or $(this)[0].reset();
 
     // получаем action
+
     this.getAttribute('action');
 
     // получаем method

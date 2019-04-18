@@ -6,6 +6,11 @@ return [
     'controller' => 'main',
     'action' => 'index'
   ],
+  // MerchantController
+  'merchant/perfectmoney' => [
+    'controller' => 'merchant',
+    'action' => 'perfectmoney'
+  ],
   // DashboardController
   'dashboard/tariffs' => [
     'controller' => 'dashboard',
