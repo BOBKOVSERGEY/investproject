@@ -53,7 +53,7 @@ class Merchant extends Model
         'sum' => $refSum,
         'id' => $dataRef,
       ];
-      $this->db->query('UPDATE accounts SET refBalance = refBalance + :sum WHERE id = :id', $params);
+      $this->db->query('UPDATE accounts SET refbalance = refbalance + :sum WHERE id = :id', $params);
       $params = [
         'id' => '',
         'uid' => $dataRef,

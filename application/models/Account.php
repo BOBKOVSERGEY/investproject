@@ -133,10 +133,11 @@ class Account extends Model
       'wallet' => $this->security($post['wallet']),
       'password' => password_hash($this->security($post['password']), PASSWORD_BCRYPT),
       'ref' => $ref,
+      'refbalance' => 0,
       'token' => $token,
       'status' => 0,
     ];
-    $this->db->query('INSERT INTO accounts VALUES (:id, :email, :login, :wallet, :password, :ref, :token, :status)', $params);
+    $this->db->query('INSERT INTO accounts VALUES (:id, :email, :login, :wallet, :password, :ref, :refbalance, :token, :status)', $params);
     //debug(Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']), 1);
       Mail::sendMail('Подтверждение регистрации', "<a href='http://investproject/account/confirm/{$token}'>Подтверждение регистрации http://investproject/account/confirm/{$token}</a>", $post['email']);
 

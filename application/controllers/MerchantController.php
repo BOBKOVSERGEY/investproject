@@ -11,13 +11,13 @@ class MerchantController extends Controller
   public function perfectmoneyAction()
   {
 
-		$_POST['PAYMENT_AMOUNT'] = 200;
+		/*$_POST['PAYMENT_AMOUNT'] = 100;
 		$_POST['PAYEE_ACCOUNT'] = '';
 		$_POST['PAYMENT_BATCH_NUM'] = '';
 		$_POST['PAYER_ACCOUNT'] = '';
 		$_POST['TIMESTAMPGMT'] = '';
 		$_POST['PAYMENT_UNITS'] = 'USD';
-		$_POST['PAYMENT_ID'] = '1,3';
+		$_POST['PAYMENT_ID'] = '1,1';*/
 
     if (empty($_POST)) {
       $this->view->errorCode(404);

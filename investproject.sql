@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 18 2019 г., 09:42
--- Версия сервера: 5.7.23
--- Версия PHP: 7.0.32
+-- Время создания: Май 23 2019 г., 16:31
+-- Версия сервера: 5.7.20
+-- Версия PHP: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -35,6 +35,7 @@ CREATE TABLE `accounts` (
   `wallet` varchar(60) NOT NULL,
   `password` varchar(255) NOT NULL,
   `ref` int(11) NOT NULL,
+  `refbalance` float NOT NULL,
   `token` varchar(255) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -43,9 +44,21 @@ CREATE TABLE `accounts` (
 -- Дамп данных таблицы `accounts`
 --
 
-INSERT INTO `accounts` (`id`, `email`, `login`, `wallet`, `password`, `ref`, `token`, `status`) VALUES
-(1, 'sergey_bobkov@inbox.ru', 'sergeybobkov', '9266668737', '$2y$10$paz426g1mwaWYTJpAiycYerdG8R8LJJGMhzkjqPkCNegggFvHKEfe', 0, '', 1),
-(2, 'esdicompany@yandex.ru', 'esdicompany', 'U84956643815', '$2y$10$JUYJ7At0LV/i0YRlkJfaIuhBsX47tqlBATHA/BR16MbkBmTkGQpPG', 0, '3x75gvb9gjkt8v8wfixcj8j02ibai3', 0);
+INSERT INTO `accounts` (`id`, `email`, `login`, `wallet`, `password`, `ref`, `refbalance`, `token`, `status`) VALUES
+(1, 'sergey_bobkov@inbox.ru', 'sergeybobkov', 'U79266668737', '$2y$10$a9HYejdvuIexaNkOd5jHee1HuHZxg3RxTPCbNNgmOja2/4Wsvo.1W', 0, 0, '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `history`
+--
+
+CREATE TABLE `history` (
+  `id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `unixTime` int(11) NOT NULL,
+  `text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -74,6 +87,12 @@ ALTER TABLE `accounts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `history`
+--
+ALTER TABLE `history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `tariffs`
 --
 ALTER TABLE `tariffs`
@@ -87,7 +106,13 @@ ALTER TABLE `tariffs`
 -- AUTO_INCREMENT для таблицы `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `history`
+--
+ALTER TABLE `history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `tariffs`
